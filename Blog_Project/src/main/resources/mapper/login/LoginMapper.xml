@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.project.Blog.mapper.LoginMapper">
+
+	<select id="userLogin" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT 	user_id
+				, admin_at
+				, user_nm
+				, user_mail
+		  FROM 	tb_user
+		 WHERE 	user_id = #{login_id, jdbcType=VARCHAR}
+		   AND 	user_pw = #{login_password, jdbcType=VARCHAR}
+		   AND 	use_yn = 'Y'
+	</select>
+
+	<select id="userLoginCheck" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT  CASE COUNT(*) > 0
+					WHEN use_yn = 'Y' THEN 'Y'
+					ELSE 'N'
+				END login_at
+		  FROM 	tb_user
+		 WHERE 	user_id = #{login_id, jdbcType=VARCHAR}
+		   AND 	user_pw = #{login_password, jdbcType=VARCHAR}
+	</select>
+</mapper>
